@@ -1,3 +1,6 @@
+import promptSync from "prompt-sync";
+const prompt = promptSync();
+
 // ===== CLASSE DE PERSONAGEM =====
 class Personagem {
   constructor(nome, velocidade, manobrabilidade, poder) {
@@ -126,12 +129,32 @@ async function declareWinner(character1, character2) {
   }
 }
 
+// ===== MENU DE ESCOLHA =====
+function escolherPersonagem(jogador) {
+  console.log(`\nEscolha o personagem do ${jogador}:`);
+  personagens.forEach((p, i) => {
+    console.log(`${i + 1}. ${p.NOME} (Vel: ${p.VELOCIDADE}, Man: ${p.MANOBRABILIDADE}, Pod: ${p.PODER})`);
+  });
+
+  let escolha;
+  do {
+    escolha = parseInt(prompt("Digite o número do personagem: "));
+  } while (isNaN(escolha) || escolha < 1 || escolha > personagens.length);
+
+  return new Personagem(
+    personagens[escolha - 1].NOME,
+    personagens[escolha - 1].VELOCIDADE,
+    personagens[escolha - 1].MANOBRABILIDADE,
+    personagens[escolha - 1].PODER
+  );
+}
+
 // ===== INÍCIO DO JOGO =====
 (async function main() {
   console.log("🏁🚨 Começou a corrida!");
 
-  const player1 = personagens[0]; // Mario
-  const player2 = personagens[4]; // Bowser (exemplo)
+  const player1 = escolherPersonagem("Jogador 1");
+  const player2 = escolherPersonagem("Jogador 2");
 
   await playRaceEngine(player1, player2);
   await declareWinner(player1, player2);

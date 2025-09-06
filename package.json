@@ -8,5 +8,16 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  },
+
+  
+  "type": "module"
+
+"scripts": {
+  "start": "node src/index.js"
+}
+
 }
